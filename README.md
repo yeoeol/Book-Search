@@ -74,6 +74,13 @@ SELECT title FROM BOOKS
 WHERE title = '물고기 아이';
 ```  
 ----
-**관련한 내용의 블로그**
-
+**관련 내용 블로그**
 https://yeoeol.tistory.com/20
+
+----
+**TO-DO**
+- [ ] 복합 인덱스
+- [ ] 커버링 인덱스
+- [ ] 정렬 튜닝(ORDER BY)
+- [ ] 접두사(FULLTEXT INDEX)
+- [ ] Elastic Search
