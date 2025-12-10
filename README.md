@@ -13,11 +13,11 @@ WHERE title like '해리%';
 SELECT publisher FROM BOOKS
 WHERE publisher like '동아%';
 ```
-||TITLE|PUBLISHER|
+|구분|TITLE|PUBLISHER|
 |------|---|---|
 |INDEX X|730ms|444ms|
 |INDEX O|2ms|1ms|
-|rows|4건|2078건| 
+|Rows|4건|2078건| 
 
 사용한 SQL 목록
 -- 
@@ -46,6 +46,7 @@ CREATE TABLE sequences (
 );
 ```
 
+
 **INDEX**
 ```sql
 -- title 컬럼 인덱스 생성
@@ -71,4 +72,8 @@ WHERE title = '물고기 아이';
 EXPLAIN ANALYZE
 SELECT title FROM BOOKS
 WHERE title = '물고기 아이';
-```
+```  
+----
+**관련한 내용의 블로그**
+
+https://yeoeol.tistory.com/20
