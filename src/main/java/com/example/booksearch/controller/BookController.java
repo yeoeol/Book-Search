@@ -5,21 +5,37 @@ import com.example.booksearch.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
-
-@RestController
+@Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/books")
 public class BookController {
 
     private final BookService bookService;
 
-    @GetMapping
-    public ResponseEntity<Page<BookDto>> getAll(Pageable pageable) {
-        return ResponseEntity.ok(bookService.getAll(pageable));
+    @GetMapping("/")
+    public String search(@RequestParam(required = false) String keyword,
+                         @PageableDefault(size = 5) Pageable pageable,
+                         Model model
+    ) {
+        if (StringUtils.hasText(keyword)) {
+            Page<BookDto> result = bookService.searchBooks(keyword, pageable);
+
+            model.addAttribute("books", result);
+            model.addAttribute("keyword", keyword);
+
+            int startPage = Math.max(1, result.getPageable().getPageNumber()-4);
+            int endPage = Math.min(result.getTotalPages(), result.getPageable().getPageNumber()+4);
+
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+        }
+
+        return "pages/search";
     }
 }

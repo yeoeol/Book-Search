@@ -36,4 +36,10 @@ public class BookService {
         Page<Book> pageBook = bookRepository.findAll(pageable);
         return pageBook.map(BookDto::from);
     }
+
+    @Transactional(readOnly = true)
+    public Page<BookDto> searchBooks(String keyword, Pageable pageable) {
+        Page<Book> pageBook = bookRepository.findByTitleStartsWith(keyword, pageable);
+        return pageBook.map(BookDto::from);
+    }
 }
