@@ -27,7 +27,7 @@ public class BookController {
                          Model model
     ) {
         if (StringUtils.hasText(keyword)) {
-            Page<BookDto> result = bookService.searchBooks(keyword, pageable);
+            Page<BookDto> result = bookService.search(keyword, pageable);
 
             model.addAttribute("books", result);
             model.addAttribute("keyword", keyword);

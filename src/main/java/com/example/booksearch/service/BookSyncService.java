@@ -21,7 +21,7 @@ public class BookSyncService {
     private final BookRepository bookRepository;
     private final BookElasticsearchRepository bookElasticsearchRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public void syncBooks() {
         int page = 0;
         int size = 1000;
