@@ -43,8 +43,4 @@ public class BookDocument {
     @Field(type = FieldType.Text)
     private String imageUrl;
 
-
-    public BookDto from() {
-
-    }
 }

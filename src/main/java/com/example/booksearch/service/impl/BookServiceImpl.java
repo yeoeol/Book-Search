@@ -9,6 +9,7 @@ import com.example.booksearch.repository.BulkRepository;
 import com.example.booksearch.service.BookService;
 import com.example.booksearch.service.ExcelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class BookServiceImpl implements BookService {
     private final BulkRepository bulkRepository;
     private final BookRepository bookRepository;
     private final BookElasticsearchRepository bookElasticsearchRepository;
+
+    @Value("${search.engine:mysql}")
+    private String searchEngine;
 
     @Transactional
     public void save(MultipartFile file) {
@@ -43,7 +47,15 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     public Page<BookDto> search(String keyword, Pageable pageable) {
-        Page<Book> pageBook = bookRepository.findByTitleStartsWith(keyword, pageable);
-        return pageBook.map(BookDto::from);
+        if ("elastic-search".equalsIgnoreCase(searchEngine)) {
+            // 엘라스틱 서치 검색
+            return bookElasticsearchRepository.findByTitleContaining(keyword, pageable)
+                    .map(BookDto::from);
+        }
+        else {
+            // MySQL 검색
+            return bookRepository.findByTitleStartsWith(keyword, pageable)
+                    .map(BookDto::from);
+        }
     }
 }
