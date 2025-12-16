@@ -1,6 +1,7 @@
 package com.example.booksearch.dto;
 
 import com.example.booksearch.domain.Book;
+import com.example.booksearch.domain.BookDocument;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -33,6 +34,19 @@ public class BookDto {
 
     public Book toBook() {
         return Book.builder()
+                .isbn(isbn)
+                .title(title)
+                .author(author)
+                .publisher(publisher)
+                .price(price)
+                .description(description)
+                .publishedDate(publishedDate)
+                .imageUrl(imageUrl)
+                .build();
+    }
+
+    public BookDocument toBookDocument() {
+        return BookDocument.builder()
                 .isbn(isbn)
                 .title(title)
                 .author(author)

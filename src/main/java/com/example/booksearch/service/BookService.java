@@ -1,7 +1,9 @@
 package com.example.booksearch.service;
 
 import com.example.booksearch.domain.Book;
+import com.example.booksearch.domain.BookDocument;
 import com.example.booksearch.dto.BookDto;
+import com.example.booksearch.repository.BookElasticsearchRepository;
 import com.example.booksearch.repository.BookRepository;
 import com.example.booksearch.repository.BulkRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class BookService {
     private final ExcelService excelService;
     private final BulkRepository bulkRepository;
     private final BookRepository bookRepository;
+    private final BookElasticsearchRepository bookElasticsearchRepository;
 
     @Transactional
     public void save(MultipartFile file) {
@@ -28,7 +31,12 @@ public class BookService {
                 .map(BookDto::toBook)
                 .toList();
 
+        List<BookDocument> bookDocumentList = bookDtoList.stream()
+                .map(BookDto::toBookDocument)
+                .toList();
+
         bulkRepository.bulkInsert("books", bookList);
+        bookElasticsearchRepository.saveAll(bookDocumentList);
     }
 
     @Transactional(readOnly = true)
