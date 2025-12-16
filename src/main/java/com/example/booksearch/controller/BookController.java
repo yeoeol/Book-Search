@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -41,6 +42,8 @@ public class BookController {
         return "pages/search";
     }
 
+
+    // mysql -> elastic-search 데이터 동기화 시 사용
     @GetMapping("/sync")
     public ResponseEntity<Void> syncBook() {
         bookSyncService.syncBooks();
