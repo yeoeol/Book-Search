@@ -1,14 +1,20 @@
 package com.example.booksearch.repository;
 
 import com.example.booksearch.domain.Book;
+import com.example.booksearch.domain.BookDocument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
+import org.springframework.data.elasticsearch.core.query.IndexQuery;
+import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Repository
@@ -16,6 +22,7 @@ import java.util.List;
 public class BulkRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final ElasticsearchOperations elasticsearchOperations;
 
     private static final int BATCH_SIZE = 1000;
 
@@ -52,5 +59,15 @@ public class BulkRepository {
                 }
         );
         log.info("{} ~ {}", books.get(0).getId(), books.get(books.size()-1).getId());
+    }
+
+    public void bulkInsertForElasticsearch(String index, List<BookDocument> documents) {
+        List<IndexQuery> queries = documents.stream()
+                .map(document -> new IndexQueryBuilder()
+                        .withObject(document)
+                        .build())
+                .collect(Collectors.toList());
+
+        elasticsearchOperations.bulkIndex(queries, IndexCoordinates.of(index));
     }
 }
