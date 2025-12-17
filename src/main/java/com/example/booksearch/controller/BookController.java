@@ -49,4 +49,10 @@ public class BookController {
         bookSyncService.syncBooks();
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/sync-bulk")
+    public ResponseEntity<Void> syncBook2() {
+        bookSyncService.syncBooksByBulk();
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -1,14 +1,11 @@
 package com.example.booksearch.domain;
 
-import com.example.booksearch.dto.BookDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
 @Getter
 @Document(indexName = "books", createIndex = true)
-@Setting(settingPath = "elasticsearch/book-setting.json")
-@Mapping(mappingPath = "elasticsearch/book-mapping.json")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
