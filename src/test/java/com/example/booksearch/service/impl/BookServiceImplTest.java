@@ -18,10 +18,10 @@ class BookServiceImplTest {
     @Test
     void test() {
         String keyword = "해리 포터";
-        Page<BookDto> search =
-                bookService.search(keyword, PageRequest.of(0, 5));
 
-        System.out.println(search);
+        bookService.search(keyword, PageRequest.of(0, 5));
+
+//        System.out.println(search);
     }
 
 }
