@@ -16,20 +16,28 @@ public class Book {
     @Setter
     private Long id;
 
+    @Column(length = 255)
     private String isbn;
 
+    @Column(length = 500)
     private String title;
 
+    @Column(length = 1000)
     private String author;
 
+    @Column(length = 255)
     private String publisher;
 
+    @Column(columnDefinition = "int")
     private Integer price;
 
+    @Column(length = 255)
     private String description;
 
+    @Column(length = 255)
     private String publishedDate;
 
+    @Column(length = 255)
     private String imageUrl;
 
 }
