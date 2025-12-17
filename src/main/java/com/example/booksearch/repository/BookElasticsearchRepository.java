@@ -7,8 +7,20 @@ import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 public interface BookElasticsearchRepository extends ElasticsearchRepository<BookDocument, String> {
-    Page<BookDocument> findByTitleContaining(String keyword, Pageable pageable);
+    Page<BookDocument> findByTitleMatches(String keyword, Pageable pageable);
 
-//    @Query("{\"multi_match\": {\"query\": \"?0\", \"fields\": [\"title^2\", \"author\", \"publisher\", \"description\"]}}")
-//    Page<BookDocument> findByKeyword(String keyword, Pageable pageable);
+    @Query("""
+            {
+              "multi_match": {
+                "query": "?0",
+                "fields": [
+                  "title^3",
+                  "author^2",
+                  "publisher",
+                  "isbn^5"
+                ]
+              }
+            }
+            """)
+    Page<BookDocument> searchByKeyword(String keyword, Pageable pageable);
 }

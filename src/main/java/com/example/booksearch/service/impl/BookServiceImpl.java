@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookService {
     public Page<BookDto> search(String keyword, Pageable pageable) {
         if ("elastic-search".equalsIgnoreCase(searchEngine)) {
             // 엘라스틱 서치 검색
-            return bookElasticsearchRepository.findByTitleContaining(keyword, pageable)
+            return bookElasticsearchRepository.searchByKeyword(keyword, pageable)
                     .map(BookDto::from);
         }
         else {
