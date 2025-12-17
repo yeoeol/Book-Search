@@ -1,5 +1,6 @@
 package com.example.booksearch.domain;
 
+import com.example.booksearch.dto.BookDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
@@ -15,8 +16,8 @@ public class BookDocument {
 
     @Id
     @Setter
-    @Field(type = FieldType.Long)
-    private Long id;
+    @Field(type = FieldType.Text)
+    private String id;
 
     @Field(type = FieldType.Text)
     private String isbn;
@@ -41,4 +42,5 @@ public class BookDocument {
 
     @Field(type = FieldType.Text)
     private String imageUrl;
+
 }

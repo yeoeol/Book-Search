@@ -32,6 +32,19 @@ public class BookDto {
                 .build();
     }
 
+    public static BookDto from(BookDocument bookDocument) {
+        return BookDto.builder()
+                .isbn(bookDocument.getIsbn())
+                .title(bookDocument.getTitle())
+                .author(bookDocument.getAuthor())
+                .publisher(bookDocument.getPublisher())
+                .price(bookDocument.getPrice())
+                .description(bookDocument.getDescription())
+                .publishedDate(bookDocument.getPublishedDate())
+                .imageUrl(bookDocument.getImageUrl())
+                .build();
+    }
+
     public Book toBook() {
         return Book.builder()
                 .isbn(isbn)
