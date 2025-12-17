@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 @Slf4j
 @Service
@@ -26,6 +26,21 @@ public class BookSyncService {
 
     @Transactional(readOnly = true)
     public void syncBooks() {
+        executeSyncProcess(bookElasticsearchRepository::saveAll);
+    }
+
+    @Transactional(readOnly = true)
+    public void syncBooksByBulk() {
+        executeSyncProcess(bookDocuments ->
+                bulkRepository.bulkInsertForElasticsearch("books", bookDocuments)
+        );
+    }
+
+    /**
+     * 공통 로직 템플릿
+     * @param saveStrategy : JPA saveAll 또는 Bulk Insert를 함수로 받음
+     */
+    private void executeSyncProcess(Consumer<List<BookDocument>> saveStrategy) {
         int page = 0;
         int size = 1000;
 
@@ -38,19 +53,10 @@ public class BookSyncService {
             }
 
             List<BookDocument> bookDocumentList = bookPage.stream()
-                    .map(book -> BookDocument.builder()
-                            .isbn(book.getIsbn())
-                            .title(book.getTitle())
-                            .author(book.getAuthor())
-                            .publisher(book.getPublisher())
-                            .price(book.getPrice())
-                            .description(book.getDescription())
-                            .publishedDate(book.getPublishedDate())
-                            .imageUrl(book.getImageUrl())
-                            .build()
-                    ).toList();
+                    .map(this::toBookDocument)
+                    .toList();
 
-            bookElasticsearchRepository.saveAll(bookDocumentList);
+            saveStrategy.accept(bookDocumentList);
 
             log.info("Book -> BookDocument 동기화 진행 중 : {}", (page+1)*size);
             page++;
@@ -59,42 +65,16 @@ public class BookSyncService {
         log.info("Book -> BookDocument 동기화 완료");
     }
 
-    @Transactional(readOnly = true)
-    public void syncBooksByBulk() {
-        List<BookDocument> bookDocumentList;
-        int page = 0;
-        int size = 1000;
-
-        while (true) {
-            PageRequest pageRequest = PageRequest.of(page, size);
-            Page<Book> bookPage = bookRepository.findAll(pageRequest);
-
-            if (bookPage.isEmpty()) {
-                break;
-            }
-
-            bookDocumentList = bookPage.stream()
-                    .map(book -> BookDocument.builder()
-                            .isbn(book.getIsbn())
-                            .title(book.getTitle())
-                            .author(book.getAuthor())
-                            .publisher(book.getPublisher())
-                            .price(book.getPrice())
-                            .description(book.getDescription())
-                            .publishedDate(book.getPublishedDate())
-                            .imageUrl(book.getImageUrl())
-                            .build()
-                    )
-                    .collect(Collectors.toList());
-
-            bulkRepository.bulkInsertForElasticsearch("books", bookDocumentList);
-
-            log.info("Book -> BookDocument 동기화 진행 중 : {}", (page+1)*size);
-            page++;
-
-            bookDocumentList.clear();
-        }
-
-        log.info("Book -> BookDocument 동기화 완료");
+    private BookDocument toBookDocument(Book book) {
+        return BookDocument.builder()
+                .isbn(book.getIsbn())
+                .title(book.getTitle())
+                .author(book.getAuthor())
+                .publisher(book.getPublisher())
+                .price(book.getPrice())
+                .description(book.getDescription())
+                .publishedDate(book.getPublishedDate())
+                .imageUrl(book.getImageUrl())
+                .build();
     }
 }
