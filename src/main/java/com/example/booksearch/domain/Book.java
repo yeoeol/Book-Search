@@ -31,7 +31,7 @@ public class Book {
     @Column(columnDefinition = "int")
     private Integer price;
 
-    @Column(length = 255)
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(length = 255)
@@ -40,4 +40,24 @@ public class Book {
     @Column(length = 255)
     private String imageUrl;
 
+
+    public void updateIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateAuthor(String author) {
+        this.author = author;
+    }
+
+    public void updateDescription(String description) {
+        this.description = description;
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
