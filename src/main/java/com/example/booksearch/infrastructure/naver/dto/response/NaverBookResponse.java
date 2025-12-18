@@ -16,11 +16,11 @@ public class NaverBookResponse {
     @Getter
     @NoArgsConstructor
     @ToString
-    static class Item {
+    public static class Item {
         private String title;
         private String author;
         private String isbn;
         private String image; // 이미지 URL
-        private String description; // 이미지 URL
+        private String description;
     }
 }
