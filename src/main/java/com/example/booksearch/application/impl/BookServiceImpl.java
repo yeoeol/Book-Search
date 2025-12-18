@@ -46,12 +46,11 @@ public class BookServiceImpl implements BookService {
         List<Book> bookList = bookDtoList.stream()
                 .map(BookDto::toBook)
                 .toList();
-
-        List<BookDocument> bookDocumentList = bookDtoList.stream()
-                .map(BookDto::toBookDocument)
-                .toList();
-
         bulkRepository.bulkInsert("books", bookList);
+
+        List<BookDocument> bookDocumentList = bookList.stream()
+                        .map(BookDocument::from)
+                        .toList();
         bookElasticsearchRepository.saveAll(bookDocumentList);
     }
 
@@ -127,7 +126,7 @@ public class BookServiceImpl implements BookService {
         // 변경사항이 있을 때만 DB 저장 수행
         if (isChanged) {
             // MySQL 업데이트
-            updateDB(Long.valueOf(bookDto.getId()), bookDto);
+            updateDB(bookDto.getId(), bookDto);
 
             // Elasticsearch 업데이트
             updateElasticsearch(bookDto);

@@ -31,7 +31,7 @@ public class Book {
     @Column(columnDefinition = "int")
     private Integer price;
 
-    @Column(length = 255)
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(length = 255)

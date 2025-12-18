@@ -53,7 +53,7 @@ public class BookSyncService {
             }
 
             List<BookDocument> bookDocumentList = bookPage.stream()
-                    .map(this::toBookDocument)
+                    .map(BookDocument::from)
                     .toList();
 
             saveStrategy.accept(bookDocumentList);
@@ -63,18 +63,5 @@ public class BookSyncService {
         }
 
         log.info("Book -> BookDocument 동기화 완료");
-    }
-
-    private BookDocument toBookDocument(Book book) {
-        return BookDocument.builder()
-                .isbn(book.getIsbn())
-                .title(book.getTitle())
-                .author(book.getAuthor())
-                .publisher(book.getPublisher())
-                .price(book.getPrice())
-                .description(book.getDescription())
-                .publishedDate(book.getPublishedDate())
-                .imageUrl(book.getImageUrl())
-                .build();
     }
 }

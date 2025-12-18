@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class BookDto {
-    private String id;
+    private Long id;
     private String isbn;
     private String title;
     private String author;
@@ -24,7 +24,7 @@ public class BookDto {
 
     public static BookDto from(Book book) {
         return BookDto.builder()
-                .id(String.valueOf(book.getId()))
+                .id(book.getId())
                 .isbn(book.getIsbn())
                 .title(book.getTitle())
                 .author(book.getAuthor())
@@ -52,19 +52,6 @@ public class BookDto {
 
     public Book toBook() {
         return Book.builder()
-                .isbn(isbn)
-                .title(title)
-                .author(author)
-                .publisher(publisher)
-                .price(price)
-                .description(description)
-                .publishedDate(publishedDate)
-                .imageUrl(imageUrl)
-                .build();
-    }
-
-    public BookDocument toBookDocument() {
-        return BookDocument.builder()
                 .isbn(isbn)
                 .title(title)
                 .author(author)

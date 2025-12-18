@@ -12,9 +12,8 @@ import org.springframework.data.elasticsearch.annotations.*;
 public class BookDocument {
 
     @Id
-    @Setter
-    @Field(type = FieldType.Text)
-    private String id;
+    @Field(type = FieldType.Long)
+    private Long id;
 
     @Field(type = FieldType.Text)
     private String isbn;
@@ -39,6 +38,20 @@ public class BookDocument {
 
     @Field(type = FieldType.Text)
     private String imageUrl;
+
+    public static BookDocument from(Book book) {
+        return BookDocument.builder()
+                .id(book.getId())
+                .isbn(book.getIsbn())
+                .title(book.getTitle())
+                .author(book.getAuthor())
+                .publisher(book.getPublisher())
+                .price(book.getPrice())
+                .description(book.getDescription())
+                .publishedDate(book.getPublishedDate())
+                .imageUrl(book.getImageUrl())
+                .build();
+    }
 
     public void updateIsbn(String isbn) {
         this.isbn = isbn;
