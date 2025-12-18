@@ -1,4 +1,4 @@
-package com.example.booksearch.config;
+package com.example.booksearch.infrastructure.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

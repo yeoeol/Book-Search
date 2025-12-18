@@ -1,8 +1,8 @@
-package com.example.booksearch.controller;
+package com.example.booksearch.presentation;
 
-import com.example.booksearch.dto.BookDto;
-import com.example.booksearch.service.BookService;
-import com.example.booksearch.service.BookSyncService;
+import com.example.booksearch.application.dto.BookDto;
+import com.example.booksearch.application.BookService;
+import com.example.booksearch.application.BookSyncService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

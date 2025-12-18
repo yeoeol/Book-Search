@@ -1,13 +1,9 @@
-package com.example.booksearch.service.impl;
+package com.example.booksearch.application.impl;
 
-import com.example.booksearch.dto.BookDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BookServiceImplTest {

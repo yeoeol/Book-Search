@@ -1,8 +1,8 @@
 package com.example.booksearch;
 
 import com.example.booksearch.domain.Book;
-import com.example.booksearch.repository.BookRepository;
-import com.example.booksearch.repository.BulkRepository;
+import com.example.booksearch.domain.repository.BookRepository;
+import com.example.booksearch.domain.repository.BulkRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,10 +1,10 @@
-package com.example.booksearch.service;
+package com.example.booksearch.application;
 
 import com.example.booksearch.domain.Book;
 import com.example.booksearch.domain.BookDocument;
-import com.example.booksearch.repository.BookElasticsearchRepository;
-import com.example.booksearch.repository.BookRepository;
-import com.example.booksearch.repository.BulkRepository;
+import com.example.booksearch.domain.repository.BookElasticsearchRepository;
+import com.example.booksearch.domain.repository.BookRepository;
+import com.example.booksearch.domain.repository.BulkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

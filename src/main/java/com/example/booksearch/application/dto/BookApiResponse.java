@@ -1,4 +1,4 @@
-package com.example.booksearch.dto;
+package com.example.booksearch.application.dto;
 
 import com.example.booksearch.domain.Book;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;

@@ -1,6 +1,6 @@
-package com.example.booksearch.controller;
+package com.example.booksearch.presentation;
 
-import com.example.booksearch.service.BookService;
+import com.example.booksearch.application.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

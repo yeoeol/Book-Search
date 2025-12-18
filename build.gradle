@@ -31,6 +31,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation 'com.google.cloud:spring-cloud-gcp-starter:7.4.1'
+
 
     implementation 'org.apache.poi:poi:5.4.0'
     implementation 'org.apache.poi:poi-ooxml:5.4.0'

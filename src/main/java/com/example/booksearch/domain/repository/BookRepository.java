@@ -1,4 +1,4 @@
-package com.example.booksearch.repository;
+package com.example.booksearch.domain.repository;
 
 import com.example.booksearch.domain.Book;
 import org.springframework.data.domain.Page;

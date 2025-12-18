@@ -1,8 +1,8 @@
-package com.example.booksearch.service;
+package com.example.booksearch.application;
 
 import com.example.booksearch.domain.Book;
-import com.example.booksearch.dto.BookApiResponse;
-import com.example.booksearch.repository.BulkRepository;
+import com.example.booksearch.application.dto.BookApiResponse;
+import com.example.booksearch.domain.repository.BulkRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
