@@ -1,4 +1,4 @@
-package com.example.booksearch.application;
+package com.example.booksearch.application.impl;
 
 import com.example.booksearch.domain.Book;
 import com.example.booksearch.domain.BookDocument;

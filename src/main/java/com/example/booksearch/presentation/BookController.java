@@ -1,8 +1,8 @@
 package com.example.booksearch.presentation;
 
+import com.example.booksearch.application.BookSearchService;
 import com.example.booksearch.application.dto.BookDto;
-import com.example.booksearch.application.BookService;
-import com.example.booksearch.application.BookSyncService;
+import com.example.booksearch.application.impl.BookSyncService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class BookController {
 
-    private final BookService bookService;
+    private final BookSearchService bookSearchService;
     private final BookSyncService bookSyncService;
 
     @GetMapping("/")
@@ -27,7 +27,7 @@ public class BookController {
                          Model model
     ) {
         if (StringUtils.hasText(keyword)) {
-            Page<BookDto> result = bookService.search(keyword, pageable);
+            Page<BookDto> result = bookSearchService.search(keyword, pageable);
 
             model.addAttribute("books", result);
             model.addAttribute("keyword", keyword);

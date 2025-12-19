@@ -1,4 +1,4 @@
-package com.example.booksearch.application;
+package com.example.booksearch.application.impl;
 
 import com.example.booksearch.application.dto.BookDto;
 import com.example.booksearch.global.parser.ExcelParser;

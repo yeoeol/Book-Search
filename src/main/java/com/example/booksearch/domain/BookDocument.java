@@ -1,8 +1,10 @@
 package com.example.booksearch.domain;
 
+import com.example.booksearch.application.dto.BookDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
+import org.springframework.util.StringUtils;
 
 @Getter
 @Document(indexName = "books", createIndex = true)
@@ -71,5 +73,13 @@ public class BookDocument {
 
     public void updateImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public void fillEmptyFields(BookDto dto) {
+        if (StringUtils.hasText(dto.getIsbn())) this.isbn = dto.getIsbn();
+        if (StringUtils.hasText(dto.getTitle())) this.title = dto.getTitle();
+        if (StringUtils.hasText(dto.getAuthor())) this.author = dto.getAuthor();
+        if (StringUtils.hasText(dto.getDescription())) this.description = dto.getDescription();
+        if (StringUtils.hasText(dto.getImageUrl())) this.imageUrl = dto.getImageUrl();
     }
 }

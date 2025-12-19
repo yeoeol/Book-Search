@@ -1,7 +1,10 @@
 package com.example.booksearch.domain;
 
+import com.example.booksearch.application.dto.BookDto;
 import jakarta.persistence.*;
 import lombok.*;
+
+import static org.springframework.util.StringUtils.hasText;
 
 @Entity
 @Getter
@@ -40,6 +43,14 @@ public class Book {
     @Column(length = 255)
     private String imageUrl;
 
+
+    public void fillEmptyFields(BookDto dto) {
+        if (hasText(dto.getIsbn())) this.isbn = dto.getIsbn();
+        if (hasText(dto.getTitle())) this.title = dto.getTitle();
+        if (hasText(dto.getAuthor())) this.author = dto.getAuthor();
+        if (hasText(dto.getDescription())) this.description = dto.getDescription();
+        if (hasText(dto.getImageUrl())) this.imageUrl = dto.getImageUrl();
+    }
 
     public void updateIsbn(String isbn) {
         this.isbn = isbn;
