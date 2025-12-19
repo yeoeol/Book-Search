@@ -1,5 +1,6 @@
 package com.example.booksearch.infrastructure.naver.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class NaverBookResponse {
 
@@ -15,6 +17,7 @@ public class NaverBookResponse {
 
     @Getter
     @NoArgsConstructor
+    @AllArgsConstructor
     @ToString
     public static class Item {
         private String title;
