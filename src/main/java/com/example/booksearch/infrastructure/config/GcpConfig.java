@@ -14,10 +14,10 @@ import java.io.InputStream;
 @Configuration
 public class GcpConfig {
 
-    @Value("${spring.cloud.gcp.storage.credentials.location}")
+    @Value("${spring.cloud.gcp.credentials.location}")
     private String keyFileName;
 
-    @Value("${spring.cloud.gcp.storage.project-id}")
+    @Value("${spring.cloud.gcp.project-id}")
     private String projectId;
 
     @Bean
