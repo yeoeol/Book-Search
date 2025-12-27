@@ -52,7 +52,7 @@ jobs:
             cd ~/app
             docker compose pull
             docker compose up -d mysql
-            sleep 20
+            sleep 15
             docker compose up -d elasticsearch
-            sleep 20
+            sleep 15
             docker compose up -d book-search-app
