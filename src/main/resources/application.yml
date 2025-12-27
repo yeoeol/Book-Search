@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  elasticsearch:
+    uris: ${SPRING_ELASTICSEARCH_URIS} # localhost 대신 변수 처리
+
+  cloud:
+    gcp:
+      storage:
+        credentials:
+          location: ${GCP_STORAGE_LOCATION}
+        project-id: ${GCP_PROJECT_ID}
+        bucket: ${GCP_BUCKET}
+
+search:
+  engine: ${SEARCH_ENGINE}
+
+naver:
+  client:
+    id: ${NAVER_CLIENT_ID}
+    secret: ${NAVER_SECRET}
